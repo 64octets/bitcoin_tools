@@ -6,7 +6,7 @@ from json import dumps
 fout = open("./data/utxos.txt", 'w')
 
 # Open the LevelDB
-db = plyvel.DB("/home/sdelgado/.bitcoin/chainstate")
+db = plyvel.DB("/home/sdelgado/.bitcoin/chainstate")  # Change with path to chainstate
 
 # Load obfuscation key (if it exists)
 o_key = db.get((a2b_hex("0e00") + "obfuscate_key"))
