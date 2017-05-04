@@ -1,5 +1,9 @@
-.*/
+data
+bitcoin_addresses
+.idea
 *.pyc
-test/data/*
 test/test.py
 ToDo
+test.py
+
+
