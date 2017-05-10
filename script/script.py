@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from wallet.wallet import btc_address_to_hash_160
+from wallet.wallet import btc_addr_to_hash_160
 from bitcoin.core.script import *
 from binascii import a2b_hex, b2a_hex
 from utils.utils import check_public_key, check_signature, check_address
@@ -100,13 +100,15 @@ class OutputScript(Script):
     def P2PKH(self, btc_addr, network='test'):
         if check_address(btc_addr, network):
             self.type = "P2PKH"
-            self.content = self.serialize("OP_DUP OP_HASH160 <" + btc_address_to_hash_160(btc_addr)
+            self.content = self.serialize("OP_DUP OP_HASH160 <" + btc_addr_to_hash_160(btc_addr)
                                           + "> OP_EQUALVERIFY OP_CHECKSIG")
 
     def P2MS(self, m, n, pks):
         if n != len(pks):
             raise Exception("The provided number of keys does not match the expected one: " + str(len(pks)) +
                             "!=" + str(n))
+        elif m not in range(1, 15) or n not in range(1, 15):
+            raise Exception("Multisig transactions must be 15-15 at max")
         else:
             script = "OP_" + str(m)
             for pk in pks:
