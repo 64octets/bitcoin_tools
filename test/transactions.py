@@ -2,6 +2,9 @@ from wallet.keys import serialize_pk, load_keys
 from tx.tx import TX
 
 
+from wallet.keys import serialize_pk, load_keys
+from tx.tx import TX
+
 # BUILD TRANSACTIONS
 
 prev_tx_ids = ["f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba",  # P2PK
@@ -16,8 +19,8 @@ sks = []
 
 # Just for testing
 fee_multiplier = 240
-fee = 335 * fee_multiplier
-value = 6163910 - fee
+fee = 235 * fee_multiplier
+value = 6083510 - fee
 
 for addr in btc_addrs:
     sk, pk = load_keys(addr)
@@ -46,8 +49,7 @@ for i in range(3):
             print "\nTO: P2MS\n"
             dest = [2, serialize_pk(pks[0]), serialize_pk(pks[1])]
 
-        tx = TX()
-        tx.build_from_io(prev_tx_ids[i], prev_out_index[i], value, serialize_pk(pks[0]))
+        tx = TX.build_from_io(prev_tx_ids[i], prev_out_index[i], value, dest)
         tx.sign(sk, 0)
         print tx.serialize()
         tx.deserialize()
