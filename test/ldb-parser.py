@@ -12,8 +12,6 @@ db = plyvel.DB("/home/sdelgado/.bitcoin/chainstate")  # Change with path to chai
 o_key = db.get((a2b_hex("0e00") + "obfuscate_key"))
 
 print o_key
-db.close()
-exit(0)
 
 # If the key exists, the leading byte indicates the length of the key (8 byte by default). If there is no key, 8-byte
 # zeros are used (since the key will be XORed with the given values).
